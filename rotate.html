@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    img {
+        width: 200px;
+        height: 200px;
+        background-size: cover;
+    }
+
+    ul {
+        width: 400px;
+        list-style: none;
+    }
+
+    li {
+        position: absolute;
+        transform: rotate(0);
+        transform-origin: 0 100%;
+        counter-reset: wangxiaoer 0;
+        counter-increment: wangxiaoer;
+    }
+
+    li:after {
+        position: absolute;
+        width: 100%;
+        height: 3px;
+        left: 0;
+        background-color: #66cccc;
+        transform: scaleX(0);
+        transform-origin: 0% 0%;
+        transition: transform 2.5s;
+        content: counter(wangxiaoer);
+    }
+
+    li.trans:after {
+        transform: scaleX(1);
+    }
+
+    .wrap {
+        width: 850px;
+        height: 850px;
+        padding-left: 425px;
+        padding-top: 125px;
+        border-radius: 50%;
+        border:1px solid red;
+        box-sizing: border-box;
+    }
+
+    .trans {}
+    </style>
+</head>
+
+<body>
+    <ul class="wrap">
+        <li><img src="images/44.jpg"></li>
+        <li><img src="images/33.jpg"></li>
+        <li><img src="images/22.jpg"></li>
+        <li class=""><img src="images/11.png"></li>
+        <li><img src="images/44.jpg"></li>
+        <li><img src="images/33.jpg"></li>
+        <li><img src="images/22.jpg"></li>
+        <li class=""><img src="images/11.png"></li>
+        <li><img src="images/44.jpg"></li>
+        <li><img src="images/33.jpg"></li>
+        <li><img src="images/22.jpg"></li>
+        <li class=""><img src="images/11.png"></li>
+        <li><img src="images/44.jpg"></li>
+        <li><img src="images/33.jpg"></li>
+        <li><img src="images/22.jpg"></li>
+        <li class=""><img src="images/11.png"></li>
+    </ul>
+    <script type="text/javascript">
+    var stack = {
+        ele: '.wrap li',
+        length: 16,//图片数组
+        dalay: 250,//ms
+        full: false,//是否充满
+        deg: 15//角度
+    };
+    function Us(opt){
+        let nodeList = document.querySelectorAll(opt.ele);
+        let i = opt.length - 1;
+        if(opt.full){
+            for(; i<= stack.length; i--){
+                console.log((360/opt.length)*i)
+                nodeList[i].style.transform = 'rotate('+ (270/opt.length)*i +'deg)';
+                nodeList[i].style.transition = 'transform  '+ i*opt.dalay/1000 +'s linear '+ (opt.length - i)*opt.dalay/1000 +'s';
+                // 可能会有用
+                let m = [...nodeList[i].parentNode.children].filter((child) =>
+                    child !== nodeList[i]
+                );
+                if(i === 0){
+                    break;
+                }
+            }
+        }else{
+            for(; i<= stack.length; i--){
+                console.log(360/opt.length)
+                nodeList[i].style.transform = 'rotate('+ opt.deg*i +'deg)';
+                nodeList[i].style.transition = 'transform  '+ i*opt.dalay/1000 +'s linear '+ (opt.length - i)*opt.dalay/1000 +'s';
+                let m = [...nodeList[i].parentNode.children].filter((child) =>
+                    child !== nodeList[i]
+                );
+                if(i === 0){
+                    break;
+                }
+            }
+        }
+    }
+    window.onload = Us(stack);
+
+
+    </script>
+</body>
+
+</html>
